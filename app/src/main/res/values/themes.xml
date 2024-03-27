@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Ucrop" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/ucrop_color_black</item>
+        <item name="colorPrimaryVariant">@color/ucrop_color_black</item>
+        <item name="colorOnPrimary">@color/ucrop_color_black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/ucrop_color_black</item>
+        <item name="colorSecondaryVariant">@color/ucrop_color_black</item>
+        <item name="colorOnSecondary">@color/ucrop_color_black</item>
+        <!-- Status bar color. -->
+        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">#00000000</item>
+    </style>
+
+    <style name="full_screen_dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:colorAccent">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>
