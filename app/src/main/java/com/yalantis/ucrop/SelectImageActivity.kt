@@ -4,12 +4,14 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Nullable
@@ -18,24 +20,80 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import com.takusemba.cropme.OnCropListener
+import com.yalantis.ucrop.databinding.ActivitySelectImageBinding
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
 
 
 class SelectImageActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySelectImageBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_image)
+        binding = ActivitySelectImageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        findViewById<View>(R.id.btnSelect).setOnClickListener {
+        binding.btnSelect.setOnClickListener {
             select()
         }
 
         requestPermission()
 
+
+//        binding.cropView.addOnCropListener(object : OnCropListener {
+//            override fun onSuccess(bitmap: Bitmap) {
+//                val pathCrop = createDownloadFile()
+//                saveBitmap(bitmap, pathCrop)
+//                Toast.makeText(baseContext, "Success", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onFailure(e: Exception) {
+//
+//            }
+//        })
+//
+//
+//        binding.btnCropImage.setOnClickListener {
+//            binding.cropView.crop()
+//        }
+
+
+    }
+
+    // Hàm để lưu bitmap vào một tệp ảnh
+    fun saveBitmap(bitmap: Bitmap, path:String): File? {
+        val file = File(path)
+
+        var outputStream: OutputStream? = null
+        try {
+            // Mở một luồng đầu ra đến tệp
+            outputStream = FileOutputStream(file)
+
+            // Lưu bitmap vào tệp ảnh
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+
+            // Ghi dữ liệu vào tệp
+            outputStream.flush()
+
+            // Trả về đối tượng File đã tạo
+            return file
+        } catch (e: IOException) {
+            e.printStackTrace()
+            // Xử lý lỗi nếu có
+        } finally {
+            // Đảm bảo luồng đầu ra được đóng
+            outputStream?.close()
+        }
+        return null
     }
 
 
-    fun select() {
+
+    private fun select() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
@@ -168,6 +226,7 @@ class SelectImageActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1234) {
             data?.data?.let { start(it) }
+            //data?.data?.let { binding.cropView.setUri(it) }
         }
 
     }
@@ -218,9 +277,10 @@ class SelectImageActivity : AppCompatActivity() {
             val options = UCrop.Options()
             options.setCompressionQuality(100)
             options.setShowCropGrid(true)
-            options.setHideBottomControls(true)
+            //options.setHideBottomControls(true)
             UCrop.of(uri, uriOut)
-                .withAspectRatio(3F, 5.5F)
+                //.withAspectRatio(9F, 16F)
+               // .useSourceImageAspectRatio()
                 .withOptions(options)
                 .start(this)
         }

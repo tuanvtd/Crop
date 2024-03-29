@@ -447,6 +447,9 @@ public class UCropActivity extends AppCompatActivity {
                     CropImageView.SOURCE_IMAGE_ASPECT_RATIO, CropImageView.SOURCE_IMAGE_ASPECT_RATIO));
             aspectRatioList.add(new AspectRatio(null, 3, 2));
             aspectRatioList.add(new AspectRatio(null, 16, 9));
+            aspectRatioList.add(new AspectRatio(null, 9, 16));
+            aspectRatioList.add(new AspectRatio(null, 4, 5));
+            aspectRatioList.add(new AspectRatio(null, 3, 5));
         }
 
         LinearLayout wrapperAspectRatioList = findViewById(R.id.layout_aspect_ratio);
