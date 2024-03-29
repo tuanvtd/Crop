@@ -6,6 +6,14 @@
     android:layout_height="match_parent">
 
 
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSelect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 <!--    <com.takusemba.cropme.CropLayout-->
@@ -27,22 +35,11 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
         android:text="Select"
+        android:layout_marginBottom="200dp"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btnCropImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Crop"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSelect" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

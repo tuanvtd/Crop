@@ -358,9 +358,13 @@ public class UCropActivity extends AppCompatActivity {
         }
     }
 
+
     private void initiateRootViews() {
         mUCropView = findViewById(R.id.ucrop);
         mGestureCropImageView = mUCropView.getCropImageView();
+
+        //mGestureCropImageView.setRotateEnabled(false);
+
         mOverlayView = mUCropView.getOverlayView();
 
         mGestureCropImageView.setTransformImageListener(mImageListener);
@@ -374,7 +378,7 @@ public class UCropActivity extends AppCompatActivity {
             findViewById(R.id.ucrop_frame).requestLayout();
         }
     }
-
+    float initialScale = 0F;
     private TransformImageView.TransformImageListener mImageListener = new TransformImageView.TransformImageListener() {
         @Override
         public void onRotate(float currentAngle) {
@@ -442,14 +446,13 @@ public class UCropActivity extends AppCompatActivity {
 
             aspectRatioList = new ArrayList<>();
             aspectRatioList.add(new AspectRatio(null, 1, 1));
-            aspectRatioList.add(new AspectRatio(null, 3, 4));
-            aspectRatioList.add(new AspectRatio(getString(R.string.ucrop_label_original).toUpperCase(),
-                    CropImageView.SOURCE_IMAGE_ASPECT_RATIO, CropImageView.SOURCE_IMAGE_ASPECT_RATIO));
-            aspectRatioList.add(new AspectRatio(null, 3, 2));
+            aspectRatioList.add(new AspectRatio(null, 4, 5));
+            //aspectRatioList.add(new AspectRatio(null, 3, 4));
+            aspectRatioList.add(new AspectRatio(getString(R.string.ucrop_label_original).toUpperCase(), CropImageView.SOURCE_IMAGE_ASPECT_RATIO, CropImageView.SOURCE_IMAGE_ASPECT_RATIO));
+            //aspectRatioList.add(new AspectRatio(null, 3, 2));
             aspectRatioList.add(new AspectRatio(null, 16, 9));
             aspectRatioList.add(new AspectRatio(null, 9, 16));
-            aspectRatioList.add(new AspectRatio(null, 4, 5));
-            aspectRatioList.add(new AspectRatio(null, 3, 5));
+            //aspectRatioList.add(new AspectRatio(null, 3, 5));
         }
 
         LinearLayout wrapperAspectRatioList = findViewById(R.id.layout_aspect_ratio);
@@ -471,6 +474,7 @@ public class UCropActivity extends AppCompatActivity {
 
         mCropAspectRatioViews.get(aspectRationSelectedByDefault).setSelected(true);
 
+
         for (ViewGroup cropAspectRatioView : mCropAspectRatioViews) {
             cropAspectRatioView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -483,10 +487,14 @@ public class UCropActivity extends AppCompatActivity {
                             cropAspectRatioView.setSelected(cropAspectRatioView == v);
                         }
                     }
+                    //mGestureCropImageView.setRotateEnabled(false);
                 }
             });
         }
+
+
     }
+
 
     private void setupRotateWidget() {
         mTextViewRotateAngle = findViewById(R.id.text_view_rotate);

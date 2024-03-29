@@ -10,8 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Nullable
@@ -20,7 +18,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
-import com.takusemba.cropme.OnCropListener
 import com.yalantis.ucrop.databinding.ActivitySelectImageBinding
 import java.io.File
 import java.io.FileOutputStream
@@ -229,6 +226,13 @@ class SelectImageActivity : AppCompatActivity() {
             //data?.data?.let { binding.cropView.setUri(it) }
         }
 
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            val resultUri = UCrop.getOutput(data!!)
+            binding.imgView.setImageURI(resultUri)
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            val cropError = UCrop.getError(data!!)
+        }
+
     }
 
     private fun createDownloadDirectory() {
@@ -285,6 +289,7 @@ class SelectImageActivity : AppCompatActivity() {
                 .start(this)
         }
     }
+
 
 
 
